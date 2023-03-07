@@ -28,6 +28,13 @@ resource "azurerm_network_interface" "nic" {
     private_ip_address_allocation = "Dynamic"
   }
 }
+resource "azurerm_public_ip" "pip" {
+  name                = "VIP"
+  location            = azurerm_resource_group.joselu.location
+  resource_group_name = azurerm_resource_group.joselu.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
 
 resource "azurerm_linux_virtual_machine" "vm" {
   name                = "vm1"
