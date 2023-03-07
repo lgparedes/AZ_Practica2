@@ -46,17 +46,11 @@ resource "azurerm_linux_virtual_machine" "vm" {
     azurerm_network_interface.nic.id,
   ]
 
-resource "azurerm_container_registry" "containerRegistryAzureLG" {
-  name                = "containerRegistryAzureLG"
-  resource_group_name = azurerm_resource_group.AzureLG.name
-  location            = azurerm_resource_group.AzureLG.location
-  sku                 = "Premium"
-  admin_enabled       = false
-   }
+
 
   admin_ssh_key {
     username   = "azureuser"
-    public_key = file("/home/lgparedes/keys-lg/azure.pub")
+    public_key = file("/home/keys-lg/azure.pub")
   }
 
   os_disk {
@@ -115,3 +109,10 @@ resource "azurerm_subnet_network_security_group_association" "nsg_LG" {
    subnet_id			= azurerm_subnet.subnet.id
    network_security_group_id	= azurerm_network_security_group.nsg_LG.id
 }
+resource "azurerm_container_registry" "containerRegistryAzureLG" {
+  name                = "containerRegistryAzureLG"
+  resource_group_name = azurerm_resource_group.AzureLG.name
+  location            = azurerm_resource_group.AzureLG.location
+  sku                 = "Premium"
+  admin_enabled       = false
+   }
